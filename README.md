@@ -85,24 +85,7 @@ The application will open in your browser at `http://localhost:8501`
 4. **Explore Visuals**: Check interactive charts and graphs
 5. **Review Alerts**: See detected anomalies and money-saving tips
 
-## 📁 Project Structure
-```
-billbuster/
-├── app.py                 # Main Streamlit application
-├── config.py             # Configuration settings
-├── requirements.txt      # Python dependencies
-├── README.md            # This file
-├── .gitignore           # Git ignore rules
-├── utils/               # Utility modules
-│   ├── __init__.py
-│   ├── pdf_parser.py    # PDF extraction logic
-│   ├── text_analyzer.py # Charge analysis
-│   └── visualization.py # Chart creation
-├── models/              # AI model handling
-│   ├── __init__.py
-│   └── llm_handler.py   # LLM integration
-└── data/               # Data directory
-    └── uploaded_bills/  # Temporary file storage
+
 ```
 
 ## 🔧 Configuration
