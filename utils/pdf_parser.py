@@ -39,4 +39,39 @@ class PDFParser:
                 all_text = []
                 all_tables = []
                 
+                # Process each page
+                for page_num, page in enumerate(pdf.pages, 1):
+                    # Extract text
+                    text = page.extract_text()
+                    if text:
+                        all_text.append(text)
+                    else:
+                        # If no text, try OCR
+                        logger.info(f"No text found on page {page_num}, attempting OCR...")
+                        text = self._ocr_page(page)
+                        if text:
+                            all_text.append(text)
+                    
+                    # Extract tables
+                    tables = page.extract_tables()
+                    if tables:
+                        all_tables.extend(tables)
                 
+                self.text_content = "\n\n".join(all_text)
+                self.tables = all_tables
+                
+                # Extract structured data
+                structured_data = self._extract_structured_data()
+                
+                return {
+                    'text': self.text_content,
+                    'tables': self.tables,
+                    'metadata': self.metadata,
+                    'structured_data': structured_data
+                }
+                
+        except Exception as e:
+            logger.error(f"Error parsing PDF: {str(e)}")
+            raise
+    
+    
