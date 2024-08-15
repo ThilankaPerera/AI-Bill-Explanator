@@ -74,4 +74,27 @@ class PDFParser:
             logger.error(f"Error parsing PDF: {str(e)}")
             raise
     
+    def _ocr_page(self, page) -> str:
+        """Perform OCR on a page image"""
+        try:
+            # Convert page to image
+            img = page.to_image(resolution=300)
+            pil_img = img.original
+            
+            # Perform OCR
+            text = pytesseract.image_to_string(pil_img)
+            return text
+        except Exception as e:
+            logger.error(f"OCR failed: {str(e)}")
+            return ""
     
+    def _extract_structured_data(self) -> Dict:
+        """Extract structured data like amounts, dates, account numbers"""
+        data = {
+            'amounts': [],
+            'dates': [],
+            'account_numbers': [],
+            'bill_type': None
+        }
+        
+       
