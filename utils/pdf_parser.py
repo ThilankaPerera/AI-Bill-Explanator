@@ -97,4 +97,20 @@ class PDFParser:
             'bill_type': None
         }
         
-       
+        # Extract amounts (LKR)
+        amount_patterns = [
+            r'(?:Rs\.?|LKR)\s*([0-9,]+\.?\d*)',
+            r'([0-9,]+\.?\d*)\s*(?:Rs\.?|LKR)',
+            r':\s*([0-9,]+\.?\d*)\s*$'
+        ]
+        
+        for pattern in amount_patterns:
+            matches = re.findall(pattern, self.text_content, re.MULTILINE)
+            for match in matches:
+                try:
+                    amount = float(match.replace(',', ''))
+                    data['amounts'].append(amount)
+                except:
+                    pass
+        
+        
