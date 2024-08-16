@@ -113,4 +113,34 @@ class PDFParser:
                 except:
                     pass
         
+        # Extract dates
+        date_patterns = [
+            r'\d{1,2}[-/]\d{1,2}[-/]\d{2,4}',
+            r'\d{4}[-/]\d{1,2}[-/]\d{1,2}'
+        ]
         
+        for pattern in date_patterns:
+            matches = re.findall(pattern, self.text_content)
+            data['dates'].extend(matches)
+        
+        # Extract account/reference numbers
+        account_patterns = [
+            r'Account\s*(?:No\.?|Number)?\s*:?\s*([A-Z0-9-]+)',
+            r'Reference\s*(?:No\.?|Number)?\s*:?\s*([A-Z0-9-]+)',
+            r'Bill\s*(?:No\.?|Number)?\s*:?\s*([A-Z0-9-]+)'
+        ]
+        
+        for pattern in account_patterns:
+            matches = re.findall(pattern, self.text_content, re.IGNORECASE)
+            data['account_numbers'].extend(matches)
+        
+        # Detect bill type
+        from config import BILL_TYPES
+        text_lower = self.text_content.lower()
+        
+        for bill_type, keywords in BILL_TYPES.items():
+            if any(keyword.lower() in text_lower for keyword in keywords):
+                data['bill_type'] = bill_type
+                break
+        
+        return data
