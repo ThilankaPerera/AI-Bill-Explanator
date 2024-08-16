@@ -135,12 +135,4 @@ class PDFParser:
             data['account_numbers'].extend(matches)
         
         # Detect bill type
-        from config import BILL_TYPES
-        text_lower = self.text_content.lower()
         
-        for bill_type, keywords in BILL_TYPES.items():
-            if any(keyword.lower() in text_lower for keyword in keywords):
-                data['bill_type'] = bill_type
-                break
-        
-        return data
