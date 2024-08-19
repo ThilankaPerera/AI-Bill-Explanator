@@ -56,4 +56,26 @@ class TextAnalyzer:
                     charges['line_items'].append(item)
                     charges['categories'][item['category']].append(item)
         
+        # Calculate totals per category
+        for category, items in charges['categories'].items():
+            charges['summary'][category] = sum(item['amount'] for item in items)
         
+        # Find total amount
+        total_patterns = [
+            r'(?:total|amount\s+due|payable)\s*:?\s*(?:Rs\.?|LKR)?\s*([0-9,]+\.?\d*)',
+            r'(?:Rs\.?|LKR)?\s*([0-9,]+\.?\d*)\s*(?:total|amount\s+due|payable)'
+        ]
+        
+        for pattern in total_patterns:
+            match = re.search(pattern, text, re.IGNORECASE)
+            if match:
+                charges['total_amount'] = float(match.group(1).replace(',', ''))
+                break
+        
+        # If total not found, sum all amounts
+        if charges['total_amount'] == 0 and structured_data.get('amounts'):
+            charges['total_amount'] = max(structured_data['amounts'])
+        
+        return charges
+    
+    
