@@ -78,4 +78,28 @@ class TextAnalyzer:
         
         return charges
     
+    def _categorize_charge(self, description: str) -> str:
+        """Categorize a charge based on its description"""
+        desc_lower = description.lower()
+        
+        for category, keywords in self.charge_keywords.items():
+            if any(keyword in desc_lower for keyword in keywords):
+                return category.replace('_', ' ').title()
+        
+        return 'Other Charges'
     
+    def detect_anomalies(self, current_charges: Dict, 
+                        historical_data: List[Dict] = None) -> List[Dict]:
+        """
+        Detect unusual charges or patterns
+        
+        Args:
+            current_charges: Current bill charges
+            historical_data: Previous bills data (if available)
+            
+        Returns:
+            List of detected anomalies
+        """
+        anomalies = []
+        
+        
