@@ -102,4 +102,13 @@ class TextAnalyzer:
         """
         anomalies = []
         
+        # Check for unusually high amounts
+        if current_charges.get('total_amount', 0) > 50000:  # LKR
+            anomalies.append({
+                'type': 'high_total',
+                'severity': 'warning',
+                'message': f"Bill amount (Rs. {current_charges['total_amount']:,.2f}) is unusually high",
+                'suggestion': 'Please verify your consumption and check for any penalties or arrears'
+            })
+        
         
