@@ -111,4 +111,15 @@ class TextAnalyzer:
                 'suggestion': 'Please verify your consumption and check for any penalties or arrears'
             })
         
+        # Check for penalty charges
+        for item in current_charges.get('line_items', []):
+            if any(word in item['description'].lower() 
+                   for word in ['penalty', 'late fee', 'interest', 'arrears']):
+                anomalies.append({
+                    'type': 'penalty_charge',
+                    'severity': 'alert',
+                    'message': f"Penalty charge detected: {item['description']} - Rs. {item['amount']:,.2f}",
+                    'suggestion': 'Consider paying bills on time to avoid penalty charges'
+                })
+        
         
