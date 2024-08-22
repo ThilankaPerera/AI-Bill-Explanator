@@ -122,4 +122,18 @@ class TextAnalyzer:
                     'suggestion': 'Consider paying bills on time to avoid penalty charges'
                 })
         
+        # Check VAT percentage (should be 15% in Sri Lanka)
+        taxes = current_charges.get('summary', {}).get('Taxes', 0)
+        if taxes > 0:
+            other_charges = current_charges.get('total_amount', 0) - taxes
+            if other_charges > 0:
+                vat_percentage = (taxes / other_charges) * 100
+                if vat_percentage > 18 or vat_percentage < 12:
+                    anomalies.append({
+                        'type': 'unusual_tax',
+                        'severity': 'info',
+                        'message': f"Tax percentage ({vat_percentage:.1f}%) seems unusual",
+                        'suggestion': 'Standard VAT in Sri Lanka is 15%'
+                    })
+        
         
