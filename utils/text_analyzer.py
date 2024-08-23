@@ -136,4 +136,21 @@ class TextAnalyzer:
                         'suggestion': 'Standard VAT in Sri Lanka is 15%'
                     })
         
+        # Compare with historical data if available
+        if historical_data:
+            avg_amount = sum(bill.get('total_amount', 0) for bill in historical_data) / len(historical_data)
+            current_amount = current_charges.get('total_amount', 0)
+            
+            from config import ANOMALY_THRESHOLD
+            if current_amount > avg_amount * ANOMALY_THRESHOLD:
+                increase_pct = ((current_amount - avg_amount) / avg_amount) * 100
+                anomalies.append({
+                    'type': 'usage_spike',
+                    'severity': 'warning',
+                    'message': f"Bill is {increase_pct:.1f}% higher than your average",
+                    'suggestion': 'Check for increased usage or meter reading errors'
+                })
         
+        return anomalies
+    
+    
