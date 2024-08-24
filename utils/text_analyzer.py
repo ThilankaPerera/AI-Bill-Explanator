@@ -153,4 +153,23 @@ class TextAnalyzer:
         
         return anomalies
     
-    
+    def generate_insights(self, charges: Dict, bill_type: str = None) -> List[str]:
+        """Generate helpful insights about the bill"""
+        insights = []
+        
+        # Overall breakdown
+        if charges.get('summary'):
+            insights.append(f"Your bill has {len(charges['summary'])} main categories of charges")
+        
+        # Largest charge category
+        if charges.get('summary'):
+            largest_category = max(charges['summary'].items(), 
+                                 key=lambda x: x[1], default=(None, 0))
+            if largest_category[0]:
+                pct = (largest_category[1] / charges['total_amount']) * 100
+                insights.append(
+                    f"{largest_category[0]} is your largest expense "
+                    f"(Rs. {largest_category[1]:,.2f} - {pct:.1f}% of total)"
+                )
+        
+        
