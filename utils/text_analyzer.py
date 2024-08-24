@@ -172,4 +172,24 @@ class TextAnalyzer:
                     f"(Rs. {largest_category[1]:,.2f} - {pct:.1f}% of total)"
                 )
         
+        # Tax information
+        tax_total = charges.get('summary', {}).get('Taxes', 0)
+        if tax_total > 0:
+            tax_pct = (tax_total / charges['total_amount']) * 100
+            insights.append(
+                f"Taxes account for Rs. {tax_total:,.2f} ({tax_pct:.1f}% of your bill)"
+            )
         
+        # Bill type specific insights
+        if bill_type == 'electricity':
+            usage_charges = charges.get('summary', {}).get('Usage Charges', 0)
+            if usage_charges > 0:
+                insights.append(
+                    "💡 Tip: Reduce usage during peak hours (6:30 PM - 10:30 PM) to save money"
+                )
+        elif bill_type == 'telecom':
+            insights.append(
+                "📱 Tip: Check if a package deal would be cheaper than pay-as-you-go"
+            )
+        
+        return insights
