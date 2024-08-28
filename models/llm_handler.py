@@ -19,4 +19,23 @@ class LLMHandler:
         self.llm = None
         self._initialize_model()
     
+    def _initialize_model(self):
+        """Initialize the LLM model"""
+        try:
+            logger.info(f"Loading model: {self.model_name}")
+            
+            # Check if CUDA is available
+            device = "cuda" if torch.cuda.is_available() else "cpu"
+            logger.info(f"Using device: {device}")
+            
+            
+            
+            self.llm = HuggingFacePipeline(pipeline=pipe)
+            logger.info("Model loaded successfully")
+            
+        except Exception as e:
+            logger.error(f"Error loading model: {str(e)}")
+            logger.info("Falling back to simplified mode...")
+            self.llm = None
     
+   
