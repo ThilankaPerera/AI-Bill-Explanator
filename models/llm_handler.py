@@ -28,14 +28,20 @@ class LLMHandler:
             device = "cuda" if torch.cuda.is_available() else "cpu"
             logger.info(f"Using device: {device}")
             
+            # Load tokenizer and model
+            tokenizer = AutoTokenizer.from_pretrained(self.model_name)
+            model = AutoModelForCausalLM.from_pretrained(
+                self.model_name,
+                torch_dtype=torch.float16 if device == "cuda" else torch.float32,
+                device_map="auto" if device == "cuda" else None,
+                low_cpu_mem_usage=True
+            )
             
             
-            self.llm = HuggingFacePipeline(pipeline=pipe)
-            logger.info("Model loaded successfully")
             
         except Exception as e:
             logger.error(f"Error loading model: {str(e)}")
             logger.info("Falling back to simplified mode...")
             self.llm = None
     
-   
+    
