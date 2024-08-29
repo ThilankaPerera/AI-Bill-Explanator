@@ -37,7 +37,19 @@ class LLMHandler:
                 low_cpu_mem_usage=True
             )
             
+            # Create pipeline
+            pipe = pipeline(
+                "text-generation",
+                model=model,
+                tokenizer=tokenizer,
+                max_new_tokens=1000,
+                temperature=0.3,
+                top_p=0.95,
+                repetition_penalty=1.15
+            )
             
+            self.llm = HuggingFacePipeline(pipeline=pipe)
+            logger.info("Model loaded successfully")
             
         except Exception as e:
             logger.error(f"Error loading model: {str(e)}")
