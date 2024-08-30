@@ -56,4 +56,48 @@ class LLMHandler:
             logger.info("Falling back to simplified mode...")
             self.llm = None
     
+    def explain_bill(self, bill_data: Dict) -> str:
+        """
+        Generate a plain English explanation of the bill
+        
+        Args:
+            bill_data: Dictionary containing bill information
+            
+        Returns:
+            Plain English explanation
+        """
+        if self.llm is None:
+            return self._fallback_explanation(bill_data)
+        
+        try:
+            prompt_template = """You are a helpful assistant explaining utility bills to people in Sri Lanka. 
+Explain this bill in simple, clear language that anyone can understand.
+
+Bill Information:
+Bill Type: {bill_type}
+Total Amount: Rs. {total_amount}
+Charges Breakdown:
+{charges_summary}
+
+Line Items:
+{line_items}
+
+Provide a clear, friendly explanation in 3-4 paragraphs:
+1. What this bill is for and the total amount
+2. Break down the main charges in simple terms
+3. Explain any taxes or additional fees
+4. Give practical advice if relevant
+
+Use simple Sinhala/English terms that Sri Lankan people understand. Be concise and helpful.
+
+Explanation:"""
+
+            
+            
+            return response.strip()
+            
+        except Exception as e:
+            logger.error(f"Error generating explanation: {str(e)}")
+            return self._fallback_explanation(bill_data)
+    
     
