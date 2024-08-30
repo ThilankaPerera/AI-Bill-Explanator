@@ -92,7 +92,30 @@ Use simple Sinhala/English terms that Sri Lankan people understand. Be concise a
 
 Explanation:"""
 
+            # Prepare data
+            charges_summary = "\n".join([
+                f"- {category}: Rs. {amount:,.2f}"
+                for category, amount in bill_data.get('charges', {}).get('summary', {}).items()
+            ])
             
+            line_items = "\n".join([
+                f"- {item['description']}: Rs. {item['amount']:,.2f}"
+                for item in bill_data.get('charges', {}).get('line_items', [])[:10]
+            ])
+            
+            prompt = PromptTemplate(
+                template=prompt_template,
+                input_variables=["bill_type", "total_amount", "charges_summary", "line_items"]
+            )
+            
+            chain = LLMChain(llm=self.llm, prompt=prompt)
+            
+            response = chain.run(
+                bill_type=bill_data.get('structured_data', {}).get('bill_type', 'utility').title(),
+                total_amount=f"{bill_data.get('charges', {}).get('total_amount', 0):,.2f}",
+                charges_summary=charges_summary,
+                line_items=line_items
+            )
             
             return response.strip()
             
