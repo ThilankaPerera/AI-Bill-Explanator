@@ -123,4 +123,11 @@ Explanation:"""
             logger.error(f"Error generating explanation: {str(e)}")
             return self._fallback_explanation(bill_data)
     
-    
+    def _fallback_explanation(self, bill_data: Dict) -> str:
+        """Generate explanation without LLM (fallback mode)"""
+        bill_type = bill_data.get('structured_data', {}).get('bill_type', 'utility').title()
+        total = bill_data.get('charges', {}).get('total_amount', 0)
+        summary = bill_data.get('charges', {}).get('summary', {})
+        
+        explanation = f"""## Your {bill_type} Bill Explained
+
