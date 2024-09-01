@@ -131,3 +131,26 @@ Explanation:"""
         
         explanation = f"""## Your {bill_type} Bill Explained
 
+**Total Amount Due: Rs. {total:,.2f}**
+
+### What You're Paying For:
+
+"""
+        
+        for category, amount in summary.items():
+            percentage = (amount / total * 100) if total > 0 else 0
+            explanation += f"""
+**{category}**: Rs. {amount:,.2f} ({percentage:.1f}% of total)
+"""
+            
+            # Add category-specific explanations
+            if 'usage' in category.lower() or 'consumption' in category.lower():
+                explanation += "- This is based on your actual usage/consumption during the billing period.\n"
+            elif 'fixed' in category.lower():
+                explanation += "- This is a standard monthly charge that stays the same regardless of usage.\n"
+            elif 'tax' in category.lower():
+                explanation += "- Government taxes (typically VAT at 15% in Sri Lanka).\n"
+            elif 'additional' in category.lower():
+                explanation += "- Extra charges such as surcharges, penalties, or special fees.\n"
+        
+        
