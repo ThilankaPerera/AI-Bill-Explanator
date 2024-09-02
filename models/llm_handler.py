@@ -153,4 +153,40 @@ Explanation:"""
             elif 'additional' in category.lower():
                 explanation += "- Extra charges such as surcharges, penalties, or special fees.\n"
         
+        explanation += """
+### Understanding Your Bill:
+
+Your bill consists of different types of charges:
+- **Fixed charges**: Standard monthly fees
+- **Usage charges**: Based on how much you consumed
+- **Taxes**: Government-mandated taxes (VAT, NBT, etc.)
+- **Other charges**: Any additional fees or penalties
+
+### Tips to Save:
+"""
         
+        if bill_type.lower() == 'electricity':
+            explanation += """
+- Use energy-efficient appliances
+- Avoid usage during peak hours (6:30 PM - 10:30 PM)
+- Switch off appliances when not in use
+- Consider LED bulbs instead of regular bulbs
+"""
+        elif 'telecom' in bill_type.lower() or 'mobile' in bill_type.lower():
+            explanation += """
+- Check if a package plan suits your usage better
+- Monitor data usage to avoid excess charges
+- Consider family plans if multiple users
+- Use Wi-Fi when available to save mobile data
+"""
+        else:
+            explanation += """
+- Pay on time to avoid penalty charges
+- Monitor your usage regularly
+- Contact the provider if you notice unusual charges
+- Keep track of historical bills to spot trends
+"""
+        
+        return explanation
+    
+    
