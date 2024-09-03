@@ -189,4 +189,21 @@ Your bill consists of different types of charges:
         
         return explanation
     
-    
+    def explain_specific_charge(self, charge_description: str, amount: float) -> str:
+        """Explain a specific charge in simple terms"""
+        explanations = {
+            'fixed': "This is a standard monthly charge that you pay regardless of how much you use. It covers maintenance and service costs.",
+            'usage': "This charge is based on how much electricity/water/data you actually used during this billing period.",
+            'vat': f"Value Added Tax (VAT) is a government tax currently at 15% in Sri Lanka. This adds Rs. {amount:,.2f} to your bill.",
+            'nbt': "Nation Building Tax (NBT) is a government tax used for development projects in Sri Lanka.",
+            'penalty': "This is a late payment fee. Pay your bills on time to avoid this charge in the future.",
+            'surcharge': "An additional charge, often applied during peak usage times or for excess consumption.",
+            'reconnection': "A fee charged for reconnecting your service after disconnection, usually due to non-payment."
+        }
+        
+        desc_lower = charge_description.lower()
+        for key, explanation in explanations.items():
+            if key in desc_lower:
+                return explanation
+        
+        return f"This charge of Rs. {amount:,.2f} is for: {charge_description}. Contact your service provider for specific details."
