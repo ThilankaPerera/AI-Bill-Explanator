@@ -23,7 +23,12 @@ class Visualizer:
             marker=dict(colors=px.colors.qualitative.Set3)
         )])
         
-        
+        fig.update_layout(
+            title="Bill Breakdown by Category",
+            font=dict(size=14),
+            showlegend=True,
+            height=400
+        )
         
         return fig
     
