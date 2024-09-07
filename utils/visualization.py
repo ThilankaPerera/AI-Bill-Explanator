@@ -94,4 +94,22 @@ class Visualizer:
             marker=dict(size=10)
         ))
         
+        # Add average line
+        avg = df['amount'].mean()
+        fig.add_hline(
+            y=avg,
+            line_dash="dash",
+            line_color="red",
+            annotation_text=f"Average: Rs. {avg:,.2f}"
+        )
         
+        fig.update_layout(
+            title="Bill History Comparison",
+            xaxis_title="Date",
+            yaxis_title="Amount (LKR)",
+            font=dict(size=12),
+            height=400,
+            hovermode='x unified'
+        )
+        
+        return fig
