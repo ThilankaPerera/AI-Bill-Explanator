@@ -65,4 +65,15 @@ class Visualizer:
         
         return fig
     
+    @staticmethod
+    def create_line_items_table(line_items: List[Dict]) -> pd.DataFrame:
+        """Create a formatted table of line items"""
+        if not line_items:
+            return pd.DataFrame()
+        
+        df = pd.DataFrame(line_items)
+        df['amount'] = df['amount'].apply(lambda x: f'Rs. {x:,.2f}')
+        df.columns = ['Description', 'Amount', 'Category']
+        return df
+    
     
