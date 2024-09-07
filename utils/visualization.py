@@ -76,4 +76,22 @@ class Visualizer:
         df.columns = ['Description', 'Amount', 'Category']
         return df
     
-    
+    @staticmethod
+    def create_comparison_chart(historical_data: List[Dict]) -> go.Figure:
+        """Create a line chart comparing bills over time"""
+        if not historical_data or len(historical_data) < 2:
+            return None
+        
+        df = pd.DataFrame(historical_data)
+        
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(
+            x=df['date'],
+            y=df['amount'],
+            mode='lines+markers',
+            name='Bill Amount',
+            line=dict(color='#2E86AB', width=3),
+            marker=dict(size=10)
+        ))
+        
+        
