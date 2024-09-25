@@ -70,3 +70,13 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
+def initialize_session_state():
+    """Initialize session state variables"""
+    if 'parsed_data' not in st.session_state:
+        st.session_state.parsed_data = None
+    if 'analyzed_data' not in st.session_state:
+        st.session_state.analyzed_data = None
+    if 'llm_handler' not in st.session_state:
+        st.session_state.llm_handler = None
+
+
