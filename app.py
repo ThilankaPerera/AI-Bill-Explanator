@@ -80,3 +80,11 @@ def initialize_session_state():
         st.session_state.llm_handler = None
 
 
+def load_llm():
+    """Load LLM model with caching"""
+    if st.session_state.llm_handler is None:
+        with st.spinner("Loading AI model... This may take a minute on first run."):
+            st.session_state.llm_handler = LLMHandler()
+    return st.session_state.llm_handler
+
+
