@@ -107,6 +107,41 @@ def main():
     - 💡 Money-saving tips
     """)
     
+    # Sidebar
+    with st.sidebar:
+        st.header("📁 Upload Your Bill")
+        uploaded_file = st.file_uploader(
+            "Choose a PDF file",
+            type=['pdf'],
+            help="Upload your utility bill in PDF format"
+        )
+        
+        st.markdown("---")
+        st.header("ℹ️ About")
+        st.markdown("""
+        **BillBuster** helps Sri Lankan citizens understand their bills by:
+        - Extracting text from PDF bills (even scanned ones)
+        - Breaking down charges into categories
+        - Explaining jargon in simple terms
+        - Detecting anomalies and overcharges
+        
+        **Supported Bill Types:**
+        - Electricity (CEB, LECO)
+        - Water (NWSDB)
+        - Telecom (Dialog, Mobitel, SLT, etc.)
+        - Hospital/Medical bills
+        """)
+        
+        st.markdown("---")
+        st.markdown("**Built with:**")
+        st.markdown("🤖 Mistral-7B AI Model")
+        st.markdown("📄 PDF Processing")
+        st.markdown("📊 Interactive Visualizations")
     
+    # Main content
+    if uploaded_file is not None:
+        process_bill(uploaded_file)
+    else:
+        show_demo_info()
 
 
