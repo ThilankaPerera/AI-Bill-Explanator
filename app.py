@@ -88,3 +88,25 @@ def load_llm():
     return st.session_state.llm_handler
 
 
+def main():
+    """Main application function"""
+    initialize_session_state()
+    
+    # Header
+    st.markdown('<div class="main-header">💰 BillBuster</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="sub-header">AI-Powered Bill Explainer for Sri Lanka 🇱🇰</div>',
+        unsafe_allow_html=True
+    )
+    
+    st.markdown("""
+    Upload your electricity, water, hospital, or telecom bill and get:
+    - 📊 Clear breakdown of all charges
+    - 🤖 AI explanation in plain English
+    - 🔍 Detection of unusual charges
+    - 💡 Money-saving tips
+    """)
+    
+    
+
+
