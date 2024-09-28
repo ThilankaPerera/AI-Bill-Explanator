@@ -145,3 +145,49 @@ def main():
         show_demo_info()
 
 
+def show_demo_info():
+    """Show information when no file is uploaded"""
+    st.info("👆 Upload a bill PDF to get started!")
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown("""
+        ### 📊 Clear Breakdowns
+        See exactly where your money goes with visual charts and detailed tables.
+        """)
+    
+    with col2:
+        st.markdown("""
+        ### 🤖 AI Explanations
+        Get plain English explanations of complex billing terms and charges.
+        """)
+    
+    with col3:
+        st.markdown("""
+        ### 🔍 Anomaly Detection
+        Automatically detect unusual charges, penalties, or billing errors.
+        """)
+    
+    st.markdown("---")
+    st.subheader("💡 How It Works")
+    
+    steps_col1, steps_col2, steps_col3, steps_col4 = st.columns(4)
+    
+    with steps_col1:
+        st.markdown("#### 1️⃣ Upload")
+        st.markdown("Upload your bill PDF")
+    
+    with steps_col2:
+        st.markdown("#### 2️⃣ Extract")
+        st.markdown("AI extracts text & data")
+    
+    with steps_col3:
+        st.markdown("#### 3️⃣ Analyze")
+        st.markdown("Categorize & analyze charges")
+    
+    with steps_col4:
+        st.markdown("#### 4️⃣ Explain")
+        st.markdown("Get clear explanations")
+
+
