@@ -191,3 +191,15 @@ def show_demo_info():
         st.markdown("Get clear explanations")
 
 
+def process_bill(uploaded_file):
+    """Process uploaded bill file"""
+    
+    # Create tabs for different sections
+    tab1, tab2, tab3, tab4 = st.tabs([
+        "📊 Overview", 
+        "🤖 AI Explanation", 
+        "📈 Visualizations", 
+        "⚠️ Alerts & Insights"
+    ])
+    
+    
