@@ -215,4 +215,19 @@ def process_bill(uploaded_file):
     
     parsed_data = st.session_state.parsed_data
     
-    
+    # Analyze charges
+    if st.session_state.analyzed_data is None:
+        with st.spinner("🔍 Analyzing charges..."):
+            try:
+                analyzer = TextAnalyzer()
+                charges = analyzer.analyze_charges(
+                    parsed_data['text'],
+                    parsed_data['structured_data']
+                )
+                anomalies = analyzer.detect_anomalies(charges)
+                insights = analyzer.generate_insights(
+                    charges,
+                    parsed_data['structured_data'].get('bill_type')
+                )
+                
+                
