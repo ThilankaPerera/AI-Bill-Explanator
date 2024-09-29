@@ -202,4 +202,17 @@ def process_bill(uploaded_file):
         "⚠️ Alerts & Insights"
     ])
     
+    # Parse PDF
+    if st.session_state.parsed_data is None:
+        with st.spinner("📄 Extracting text from PDF..."):
+            try:
+                parser = PDFParser()
+                st.session_state.parsed_data = parser.parse_pdf(uploaded_file)
+                st.success("✅ PDF parsed successfully!")
+            except Exception as e:
+                st.error(f"❌ Error parsing PDF: {str(e)}")
+                return
+    
+    parsed_data = st.session_state.parsed_data
+    
     
