@@ -230,4 +230,14 @@ def process_bill(uploaded_file):
                     parsed_data['structured_data'].get('bill_type')
                 )
                 
-                
+                st.session_state.analyzed_data = {
+                    'charges': charges,
+                    'anomalies': anomalies,
+                    'insights': insights
+                }
+                st.success("✅ Analysis complete!")
+            except Exception as e:
+                st.error(f"❌ Error analyzing bill: {str(e)}")
+                return
+    
+    
