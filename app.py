@@ -240,4 +240,25 @@ def process_bill(uploaded_file):
                 st.error(f"❌ Error analyzing bill: {str(e)}")
                 return
     
+    analyzed_data = st.session_state.analyzed_data
+    charges = analyzed_data['charges']
+    anomalies = analyzed_data['anomalies']
+    insights = analyzed_data['insights']
     
+    # TAB 1: Overview
+    with tab1:
+        show_overview(parsed_data, charges)
+    
+    # TAB 2: AI Explanation
+    with tab2:
+        show_ai_explanation(parsed_data, charges)
+    
+    # TAB 3: Visualizations
+    with tab3:
+        show_visualizations(charges)
+    
+    # TAB 4: Alerts & Insights
+    with tab4:
+        show_alerts_insights(anomalies, insights)
+
+
