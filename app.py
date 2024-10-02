@@ -262,3 +262,8 @@ def process_bill(uploaded_file):
         show_alerts_insights(anomalies, insights)
 
 
+def show_overview(parsed_data, charges):
+    """Display overview tab content"""
+    st.header("📊 Bill Overview")
+    
+    
