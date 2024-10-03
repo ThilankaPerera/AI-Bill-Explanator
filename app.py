@@ -266,4 +266,16 @@ def show_overview(parsed_data, charges):
     """Display overview tab content"""
     st.header("📊 Bill Overview")
     
+    # Key metrics
+    col1, col2, col3, col4 = st.columns(4)
+    
+    with col1:
+        st.markdown('<div class="metric-card">', unsafe_allow_html=True)
+        st.metric(
+            "Total Amount",
+            f"Rs. {charges.get('total_amount', 0):,.2f}",
+            help="Total amount due on this bill"
+        )
+        st.markdown('</div>', unsafe_allow_html=True)
+    
     
