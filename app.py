@@ -278,4 +278,14 @@ def show_overview(parsed_data, charges):
         )
         st.markdown('</div>', unsafe_allow_html=True)
     
+    with col2:
+        st.markdown('<div class="metric-card">', unsafe_allow_html=True)
+        bill_type = parsed_data['structured_data'].get('bill_type', 'Unknown')
+        st.metric(
+            "Bill Type",
+            bill_type.title() if bill_type else "Unknown",
+            help="Type of utility bill"
+        )
+        st.markdown('</div>', unsafe_allow_html=True)
+    
     
