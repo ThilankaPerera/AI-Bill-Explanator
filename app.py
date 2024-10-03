@@ -298,4 +298,16 @@ def show_overview(parsed_data, charges):
         )
         st.markdown('</div>', unsafe_allow_html=True)
     
+    with col4:
+        st.markdown('<div class="metric-card">', unsafe_allow_html=True)
+        num_items = len(charges.get('line_items', []))
+        st.metric(
+            "Line Items",
+            num_items,
+            help="Number of individual charges"
+        )
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    st.markdown("---")
+    
     
