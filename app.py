@@ -310,4 +310,27 @@ def show_overview(parsed_data, charges):
     
     st.markdown("---")
     
+    # Category breakdown
+    if charges.get('summary'):
+        st.subheader("💰 Charges by Category")
+        
+        for category, amount in sorted(
+            charges['summary'].items(), 
+            key=lambda x: x[1], 
+            reverse=True
+        ):
+            percentage = (amount / charges['total_amount'] * 100) if charges['total_amount'] > 0 else 0
+            
+            col1, col2, col3 = st.columns([3, 1, 1])
+            with col1:
+                st.markdown(f"**{category}**")
+            with col2:
+                st.markdown(f"Rs. {amount:,.2f}")
+            with col3:
+                st.markdown(f"{percentage:.1f}%")
+            
+            st.progress(percentage / 100)
+    
+    st.markdown("---")
+    
     
