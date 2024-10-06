@@ -333,4 +333,12 @@ def show_overview(parsed_data, charges):
     
     st.markdown("---")
     
+    # Detailed line items
+    if charges.get('line_items'):
+        st.subheader("📋 Detailed Line Items")
+        
+        visualizer = Visualizer()
+        df = visualizer.create_line_items_table(charges['line_items'])
+        st.dataframe(df, use_container_width=True, hide_index=True)
+    
     
