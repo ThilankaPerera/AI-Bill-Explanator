@@ -341,4 +341,12 @@ def show_overview(parsed_data, charges):
         df = visualizer.create_line_items_table(charges['line_items'])
         st.dataframe(df, use_container_width=True, hide_index=True)
     
-    
+    # Bill metadata
+    with st.expander("📄 Bill Information"):
+        if parsed_data['structured_data'].get('dates'):
+            st.write("**Dates found:**", ", ".join(parsed_data['structured_data']['dates'][:5]))
+        if parsed_data['structured_data'].get('account_numbers'):
+            st.write("**Account/Reference Numbers:**", ", ".join(parsed_data['structured_data']['account_numbers'][:3]))
+        st.write("**Pages:**", parsed_data['metadata']['num_pages'])
+
+
